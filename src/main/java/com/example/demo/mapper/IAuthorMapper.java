@@ -13,11 +13,14 @@ public interface IAuthorMapper {
 	
 	@Mapping(target = "idAuthor",ignore = true)
 	@Mapping(target = "imageAuthor",ignore = true)
+	@Mapping(target = "publicIDAuthor",ignore = true)
 	Author toAuthor(AuthorCreationRequest request);
 	@Mapping(target = "imageAuthor",ignore = true) 
+	@Mapping(target = "publicIDAuthor",ignore = true)
 	Author toAuthor(AuthorUpdateRequest request);
 
 	@Mapping(target = "dobAuthor",ignore = true)
 	@Mapping(target = "dodAuthor",ignore = true)
-	AuthorRespone toAuthorRespone(Author author); 
+	@Mapping(target = "publicIDAuthor",ignore = true)
+	AuthorRespone toAuthorRespone(Author author);  
 }

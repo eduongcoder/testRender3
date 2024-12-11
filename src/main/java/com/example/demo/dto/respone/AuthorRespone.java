@@ -1,6 +1,5 @@
 package com.example.demo.dto.respone;
 
-import java.time.LocalDate;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,6 +23,6 @@ public class AuthorRespone {
 	String imageAuthor;
 	String dobAuthor;
 	String dodAuthor;
-	String publicID;
+	String publicIDAuthor;
 	
 }

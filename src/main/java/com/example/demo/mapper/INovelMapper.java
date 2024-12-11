@@ -27,7 +27,7 @@ public interface INovelMapper {
 	
 	NovelJustIdAndNameRespone toNovelJustIdAndNameRespone(Novel novel); 
 	NovelNoImageRespone toNovelNoImageRespone(Novel novel);
- 
+  
 	NovelNoChapterRespone toNovelNoChapterRespone(Novel novel);
 	@Mapping(target = "originalNovel",ignore = true)
 	NovelRespone toNovelRespone(Novel novel);
@@ -36,5 +36,6 @@ public interface INovelMapper {
 	@Mapping(target = "categories",ignore = true)
 	@Mapping(target = "pointOfViews",ignore = true)
 	@Mapping(target = "chapter",ignore = true)
+	@Mapping(target = "totalPage",ignore = true)
 	void updateNovelFormRequest(NovelUpdateRequest request,@MappingTarget Novel novel);
 }

@@ -17,5 +17,5 @@ public interface ICommentMapper {
 	 
 	@Mapping(target = "idChapter",ignore = true) 
 	@Mapping(target = "idUser",ignore = true)
-	CommentRespone toCommentRespone(Comment comment);
+	CommentRespone toCommentRespone(Comment comment); 
 }
