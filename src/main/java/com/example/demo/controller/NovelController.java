@@ -37,75 +37,98 @@ import org.springframework.web.bind.annotation.PutMapping;
 @Slf4j
 public class NovelController {
 
-	NovelService novelService;
+	// NovelService novelService;
 
-	@GetMapping("/getNovels")
-	public ApiRespone<List<NovelRespone>> getAllNovel() {
-		return ApiRespone.<List<NovelRespone>>builder().result(novelService.getAllNovel()).build();
-	}
+	// @GetMapping("/getNovels")
+	// public ApiRespone<List<NovelRespone>> getAllNovel() {
+	// return
+	// ApiRespone.<List<NovelRespone>>builder().result(novelService.getAllNovel()).build();
+	// }
 
-	@GetMapping(value = "/getAllNovel1Query/{idNovel}")
-	public ApiRespone<NovelNoChapterRespone> getMethodName(@PathVariable String idNovel) {
-		return ApiRespone.<NovelNoChapterRespone>builder().result(novelService.getAll1Query(idNovel)).build();
-	}
-	
-	
-	@GetMapping("/getNovelsNoImage") 
-	public ApiRespone<List<NovelNoImageRespone>> getAllNovelNoImage() {
-		return ApiRespone.<List<NovelNoImageRespone>>builder().result(novelService.getAllNovelNoImage()).build();
-	}
-	
-	@GetMapping("/getAllNovelsJustIdAndName")
-	public ApiRespone<List<NovelJustIdAndNameRespone>> getAllNovelsJustIdAndName() {
-		return ApiRespone.<List<NovelJustIdAndNameRespone>>builder().result(novelService.getAllNovelJustIdAndName()).build();
-	}     
-	  
-	@GetMapping("/getNovelsNoChapter")
-	public ApiRespone<List<NovelNoChapterRespone>> getAllNovelNoChapter() {
-		return ApiRespone.<List<NovelNoChapterRespone>>builder().result(novelService.getAllNovelNoChapter()).build();
-	} 
+	// @GetMapping(value = "/getAllNovel1Query/{idNovel}")
+	// public ApiRespone<NovelNoChapterRespone> getMethodName(@PathVariable String
+	// idNovel) {
+	// return
+	// ApiRespone.<NovelNoChapterRespone>builder().result(novelService.getAll1Query(idNovel)).build();
+	// }
 
-	@GetMapping("/getNovelByName")
-	public ApiRespone<NovelRespone> getNovelByName(@RequestParam String nameNovel) {
-		return ApiRespone.<NovelRespone>builder().result(novelService.getNovelByName(nameNovel)).build();
-	}
+	// @GetMapping("/getNovelsNoImage")
+	// public ApiRespone<List<NovelNoImageRespone>> getAllNovelNoImage() {
+	// return
+	// ApiRespone.<List<NovelNoImageRespone>>builder().result(novelService.getAllNovelNoImage()).build();
+	// }
 
-	@PostMapping(value = "/createNovel", consumes = { "multipart/form-data" })
-	public ApiRespone<NovelRespone> createNovel(@RequestParam MultipartFile image,@RequestParam MultipartFile originalNovel,
-			@RequestPart NovelCreationRequest request) throws IOException {
-		NovelRespone novelRespone = novelService.createNovel(image,originalNovel, request);
+	// @GetMapping("/getAllNovelsJustIdAndName")
+	// public ApiRespone<List<NovelJustIdAndNameRespone>>
+	// getAllNovelsJustIdAndName() {
+	// return
+	// ApiRespone.<List<NovelJustIdAndNameRespone>>builder().result(novelService.getAllNovelJustIdAndName()).build();
+	// }
 
-		return ApiRespone.<NovelRespone>builder().result(novelRespone).build();
-	} 
+	// @GetMapping("/getNovelsNoChapter")
+	// public ApiRespone<List<NovelNoChapterRespone>> getAllNovelNoChapter() {
+	// return
+	// ApiRespone.<List<NovelNoChapterRespone>>builder().result(novelService.getAllNovelNoChapter()).build();
+	// }
 
-	@PostMapping(value = "/testImage", consumes = { "multipart/form-data" })
-	public boolean testImage(@RequestParam MultipartFile image) {
-		return novelService.isImageFIle(image);
-	}
+	// @GetMapping("/getNovelByName")
+	// public ApiRespone<NovelRespone> getNovelByName(@RequestParam String
+	// nameNovel) {
+	// return
+	// ApiRespone.<NovelRespone>builder().result(novelService.getNovelByName(nameNovel)).build();
+	// }
 
-	@PostMapping("/addCategory")
-	public ApiRespone<NovelRespone> addCategory(@RequestParam String nameCategory, @RequestParam String idNovel) {
-		return ApiRespone.<NovelRespone>builder().result(novelService.addCategory(nameCategory, idNovel)).build();
-	}
+	// @PostMapping(value = "/createNovel", consumes = { "multipart/form-data" })
+	// public ApiRespone<NovelRespone> createNovel(@RequestParam MultipartFile
+	// image,@RequestParam MultipartFile originalNovel,
+	// @RequestPart NovelCreationRequest request) throws IOException {
+	// NovelRespone novelRespone = novelService.createNovel(image,originalNovel,
+	// request);
 
-	@PostMapping("/addAuthor")
-	public ApiRespone<NovelRespone> addAuthor(@RequestParam String idAuthor, @RequestParam String idNovel) {
-		return ApiRespone.<NovelRespone>builder().result(novelService.addAuthor(idAuthor, idNovel)).build();
-	}
+	// return ApiRespone.<NovelRespone>builder().result(novelRespone).build();
+	// }
 
-	@PostMapping("/addPOV") 
-	public ApiRespone<NovelRespone> addPointOfView(@RequestParam String namePOV, @RequestParam String idNovel) {
-		return ApiRespone.<NovelRespone>builder().result(novelService.addPointOfView(namePOV, idNovel)).build();
-	} 
+	// @PostMapping(value = "/testImage", consumes = { "multipart/form-data" })
+	// public boolean testImage(@RequestParam MultipartFile image) {
+	// return novelService.isImageFIle(image);
+	// }
 
-	@PutMapping(value = "/updateNovel",consumes = {"multipart/form-data"})
-	public ApiRespone<Optional<NovelRespone>> updateNovel(@RequestParam(required = false) MultipartFile image, @RequestParam(required = false) MultipartFile originalNovel,@RequestPart NovelUpdateRequest request) throws IOException{
+	// @PostMapping("/addCategory")
+	// public ApiRespone<NovelRespone> addCategory(@RequestParam String
+	// nameCategory, @RequestParam String idNovel) {
+	// return
+	// ApiRespone.<NovelRespone>builder().result(novelService.addCategory(nameCategory,
+	// idNovel)).build();
+	// }
 
-		return ApiRespone.<Optional<NovelRespone>>builder().result(novelService.updateNovel(image,originalNovel,request)).build();
-	}
-	
-	@DeleteMapping("/deleteNovel")
-	public ApiRespone<String> deleteNovel(@RequestParam String idNovel) {
-		return ApiRespone.<String>builder().result(novelService.delete(idNovel)).build();
-	}
+	// @PostMapping("/addAuthor")
+	// public ApiRespone<NovelRespone> addAuthor(@RequestParam String idAuthor,
+	// @RequestParam String idNovel) {
+	// return
+	// ApiRespone.<NovelRespone>builder().result(novelService.addAuthor(idAuthor,
+	// idNovel)).build();
+	// }
+
+	// @PostMapping("/addPOV")
+	// public ApiRespone<NovelRespone> addPointOfView(@RequestParam String namePOV,
+	// @RequestParam String idNovel) {
+	// return
+	// ApiRespone.<NovelRespone>builder().result(novelService.addPointOfView(namePOV,
+	// idNovel)).build();
+	// }
+
+	// @PutMapping(value = "/updateNovel",consumes = {"multipart/form-data"})
+	// public ApiRespone<Optional<NovelRespone>> updateNovel(@RequestParam(required
+	// = false) MultipartFile image, @RequestParam(required = false) MultipartFile
+	// originalNovel,@RequestPart NovelUpdateRequest request) throws IOException{
+
+	// return
+	// ApiRespone.<Optional<NovelRespone>>builder().result(novelService.updateNovel(image,originalNovel,request)).build();
+	// }
+
+	// @DeleteMapping("/deleteNovel")
+	// public ApiRespone<String> deleteNovel(@RequestParam String idNovel) {
+	// return
+	// ApiRespone.<String>builder().result(novelService.delete(idNovel)).build();
+	// }
 }

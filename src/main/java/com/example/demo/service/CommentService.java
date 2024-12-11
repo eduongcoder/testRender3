@@ -23,51 +23,52 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Service
 public class CommentService {
 
-	ICommentRepository commentRepository; 
-	IChapterRepository chapterRepository;
-	IUserRepository userRepository;
-	ICommentMapper commentMapper;
-	
-	public  List<CommentRespone> getAllCommentByChapter(String idChapter) {
-		Chapter chapter=chapterRepository.findByIdChapter(idChapter);
-		return chapter.getComment().stream().map(t -> commentMapper.toCommentRespone(t)).toList();
-	}
-	
-	public CommentRespone createComment(CommentCreationRequest request) {
-		User user=userRepository.findByIdUser(request.getIduser());
-		Chapter chapter=chapterRepository.findByIdChapter(request.getIdchapter());
-		
-		Comment comment=commentMapper.toComment(request);
-		comment.setUser(user);
-		comment.setChapter(chapter);
-		return commentMapper.toCommentRespone(commentRepository.save(comment));
-	}
-	public Optional<CommentRespone> UpdateComment(CommentUpdateRequest request) {
-		if (!commentRepository.existsById(request.getIdComment())) {
-			throw new AppException(ErrorCode.COMMENT_NOT_EXISTED);
-		}
-		return commentRepository.findById(request.getIdchapter()).map(t -> {
-			User user=userRepository.findByIdUser(request.getIduser());
-			Chapter chapter=chapterRepository.findByIdChapter(request.getIdchapter());
-			
-			t.setUser(user);
-			t.setChapter(chapter);
-			
-			return commentMapper.toCommentRespone(commentRepository.save(t));
-		});
-	}
-	
-	public String deleteComment(String idComment) {
-		if (commentRepository.existsById(idComment)) {
-			commentRepository.deleteById(idComment);
-			return idComment;
-		}else {
-			throw new AppException(ErrorCode.COMMENT_NOT_EXISTED);
-		}
-		
-	}
+	// ICommentRepository commentRepository;
+	// IChapterRepository chapterRepository;
+	// IUserRepository userRepository;
+	// ICommentMapper commentMapper;
+
+	// public List<CommentRespone> getAllCommentByChapter(String idChapter) {
+	// Chapter chapter=chapterRepository.findByIdChapter(idChapter);
+	// return chapter.getComment().stream().map(t ->
+	// commentMapper.toCommentRespone(t)).toList();
+	// }
+
+	// public CommentRespone createComment(CommentCreationRequest request) {
+	// User user=userRepository.findByIdUser(request.getIduser());
+	// Chapter chapter=chapterRepository.findByIdChapter(request.getIdchapter());
+
+	// Comment comment=commentMapper.toComment(request);
+	// comment.setUser(user);
+	// comment.setChapter(chapter);
+	// return commentMapper.toCommentRespone(commentRepository.save(comment));
+	// }
+	// public Optional<CommentRespone> UpdateComment(CommentUpdateRequest request) {
+	// if (!commentRepository.existsById(request.getIdComment())) {
+	// throw new AppException(ErrorCode.COMMENT_NOT_EXISTED);
+	// }
+	// return commentRepository.findById(request.getIdchapter()).map(t -> {
+	// User user=userRepository.findByIdUser(request.getIduser());
+	// Chapter chapter=chapterRepository.findByIdChapter(request.getIdchapter());
+
+	// t.setUser(user);
+	// t.setChapter(chapter);
+
+	// return commentMapper.toCommentRespone(commentRepository.save(t));
+	// });
+	// }
+
+	// public String deleteComment(String idComment) {
+	// if (commentRepository.existsById(idComment)) {
+	// commentRepository.deleteById(idComment);
+	// return idComment;
+	// }else {
+	// throw new AppException(ErrorCode.COMMENT_NOT_EXISTED);
+	// }
+
+	// }
 }

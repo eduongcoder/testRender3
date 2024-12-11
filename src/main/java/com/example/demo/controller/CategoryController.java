@@ -28,30 +28,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class CategoryController {
 
-	CategoryService categoryService;
+	// CategoryService categoryService;
 
-	@GetMapping("/getAllCategory")
-	public ApiRespone<List<CategoryRespone>> getAllCategory() {
-		return ApiRespone.<List<CategoryRespone>>builder()
-				.result(categoryService.getAllCategory())
-				.build();
-	}
+	// @GetMapping("/getAllCategory")
+	// public ApiRespone<List<CategoryRespone>> getAllCategory() {
+	// return ApiRespone.<List<CategoryRespone>>builder()
+	// .result(categoryService.getAllCategory())
+	// .build();
+	// }
 
-	@PostMapping("/createCategory")
-	public ApiRespone<CategoryRespone> createCatehory(@RequestBody CategoryCreationRequest request) {
+	// @PostMapping("/createCategory")
+	// public ApiRespone<CategoryRespone> createCatehory(@RequestBody
+	// CategoryCreationRequest request) {
 
-		return ApiRespone.<CategoryRespone>builder().result(categoryService.createCategory(request)).build();
-	}
+	// return
+	// ApiRespone.<CategoryRespone>builder().result(categoryService.createCategory(request)).build();
+	// }
 
-	@PutMapping("/updateCategory")
-	public ApiRespone<Optional<CategoryRespone>> updateCategory(@RequestBody CategoryUpdateRequest request) {
+	// @PutMapping("/updateCategory")
+	// public ApiRespone<Optional<CategoryRespone>> updateCategory(@RequestBody
+	// CategoryUpdateRequest request) {
 
-		return ApiRespone.<Optional<CategoryRespone>>builder().result(categoryService.updateCategory(request)).build();
-	}
+	// return
+	// ApiRespone.<Optional<CategoryRespone>>builder().result(categoryService.updateCategory(request)).build();
+	// }
 
-	@DeleteMapping("/deleteCategory")
-	public ApiRespone<String> deleteCategory(@RequestParam String idCategory) {
+	// @DeleteMapping("/deleteCategory")
+	// public ApiRespone<String> deleteCategory(@RequestParam String idCategory) {
 
-		return ApiRespone.<String>builder().result(categoryService.deleteCategory(idCategory)).build();
-	}
+	// return
+	// ApiRespone.<String>builder().result(categoryService.deleteCategory(idCategory)).build();
+	// }
 }

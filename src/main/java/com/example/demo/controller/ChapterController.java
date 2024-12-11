@@ -42,104 +42,119 @@ import org.springframework.web.bind.annotation.RequestPart;
 @Slf4j
 public class ChapterController {
 
-	ChapterService chapterService;
-	INovelRepository novelRepository;
-	
-	@GetMapping("/getAllChapter")
-	public ApiRespone<List<ChapterRespone>> getAllChapterByNameNovel(@RequestParam String idNovel) {
+	// ChapterService chapterService;
+	// INovelRepository novelRepository;
 
-		return ApiRespone.<List<ChapterRespone>>builder().result(chapterService.getAllChapterByIdNovel(idNovel))
-				.build(); 
-	}
+	// @GetMapping("/getAllChapter")
+	// public ApiRespone<List<ChapterRespone>>
+	// getAllChapterByNameNovel(@RequestParam String idNovel) {
 
-	@GetMapping("/getAllChapterNoContent") 
-	public ApiRespone<List<ChapterNoContentRespone>> getAllChapterNoContentByNameNovel(@RequestParam String nameNovel) {
+	// return
+	// ApiRespone.<List<ChapterRespone>>builder().result(chapterService.getAllChapterByIdNovel(idNovel))
+	// .build();
+	// }
 
-		return ApiRespone.<List<ChapterNoContentRespone>>builder()
-				.result(chapterService.getAllChapterNoContent(nameNovel)).build();
-	}
-	
-	@GetMapping("/getAllChapterNoContentByNameNovel")
-	public ApiRespone<List<ChapterNoContentRespone>> getAllChapterNoContentByidNovel(@RequestParam String idNovel) {
+	// @GetMapping("/getAllChapterNoContent")
+	// public ApiRespone<List<ChapterNoContentRespone>>
+	// getAllChapterNoContentByNameNovel(@RequestParam String nameNovel) {
 
-		return ApiRespone.<List<ChapterNoContentRespone>>builder()
-				.result(chapterService.getAllChapterNoContentByIdNovel(idNovel)).build();
-	}
-	
+	// return ApiRespone.<List<ChapterNoContentRespone>>builder()
+	// .result(chapterService.getAllChapterNoContent(nameNovel)).build();
+	// }
 
-	
-	
-	@PostMapping(value = "/createChapter", consumes = { "multipart/form-data" })
-	public ApiRespone<ChapterRespone> createChapter(
-			@RequestPart("request") ChapterCreationRequest request) throws IOException {
-		ChapterRespone chapterRespone = chapterService.createChapter(request);
+	// @GetMapping("/getAllChapterNoContentByNameNovel")
+	// public ApiRespone<List<ChapterNoContentRespone>>
+	// getAllChapterNoContentByidNovel(@RequestParam String idNovel) {
 
-		return ApiRespone.<ChapterRespone>builder().result(chapterRespone).build();
-	}
+	// return ApiRespone.<List<ChapterNoContentRespone>>builder()
+	// .result(chapterService.getAllChapterNoContentByIdNovel(idNovel)).build();
+	// }
 
-	@PostMapping(value = "/testChapter", consumes = { "multipart/form-data" })
-	public boolean testChapter(@RequestPart("file") MultipartFile file) throws IOException {
+	// @PostMapping(value = "/createChapter", consumes = { "multipart/form-data" })
+	// public ApiRespone<ChapterRespone> createChapter(
+	// @RequestPart("request") ChapterCreationRequest request) throws IOException {
+	// ChapterRespone chapterRespone = chapterService.createChapter(request);
 
-		return chapterService.isPdfFile(file);
-	}
+	// return ApiRespone.<ChapterRespone>builder().result(chapterRespone).build();
+	// }
 
-	
-	@DeleteMapping("/deleteChapter")
-	public ApiRespone<String> deleteChapter(@RequestParam String idChapter){
-		return ApiRespone.<String>builder().result(chapterService.deleteChapter(idChapter)).build();
-	}
-	
-	// lấy 1 trang từ file pdf
-	// pageNumber trang muốn lấy
-	@GetMapping("/page")
-	public ApiRespone<PdfPageResponse> getPdfPage(@RequestParam("id") String pdfId,
-			@RequestParam("page") int pageNumber) throws IOException {
-		byte[] pdfBytes = chapterService.getChapter(pdfId).getContentChapter();
+	// @PostMapping(value = "/testChapter", consumes = { "multipart/form-data" })
+	// public boolean testChapter(@RequestPart("file") MultipartFile file) throws
+	// IOException {
 
-		String pageContent = chapterService.getPdfPage(pdfBytes, pageNumber);
-		int totalPages = chapterService.getTotalPages(pdfBytes);
+	// return chapterService.isPdfFile(file);
+	// }
 
-		return ApiRespone.<PdfPageResponse>builder().result(PdfPageResponse.builder().pageContent(pageContent)
-				.totalPages(pageNumber).totalPages(totalPages).build()).build();
-	}
+	// @DeleteMapping("/deleteChapter")
+	// public ApiRespone<String> deleteChapter(@RequestParam String idChapter){
+	// return
+	// ApiRespone.<String>builder().result(chapterService.deleteChapter(idChapter)).build();
+	// }
 
-	// lấy nhiều trang từ file pdf
-	// page là số trang bắt đầu lấy
-	// pageGet là số trang lấy
-	@GetMapping("/pages")
-	public ApiRespone<PdfPageResponse> getPdfPages(@RequestParam("id") String pdfId,
-			@RequestParam("page") int pageNumber, @RequestParam("pageGet") int pageGet) throws IOException {
-		byte[] pdfBytes = chapterService.getChapter(pdfId).getContentChapter();
-//		byte[] pdfBytesNovel=novelRepository.findById(pdfId).get().getOriginalNovel();
-		
-//		String pageContent = chapterService.getPdfPages(pdfBytesNovel, pageNumber, pageGet);
-		String pageContent = chapterService.getPdfPages(pdfBytes, pageNumber, pageGet);
-		int totalPages = chapterService.getTotalPages(pdfBytes);
+	// // lấy 1 trang từ file pdf
+	// // pageNumber trang muốn lấy
+	// @GetMapping("/page")
+	// public ApiRespone<PdfPageResponse> getPdfPage(@RequestParam("id") String
+	// pdfId,
+	// @RequestParam("page") int pageNumber) throws IOException {
+	// byte[] pdfBytes = chapterService.getChapter(pdfId).getContentChapter();
 
-		return ApiRespone.<PdfPageResponse>builder().result(PdfPageResponse.builder().pageContent(pageContent)
-				.totalPages(pageNumber).totalPages(totalPages).build()).build();
-	}
+	// String pageContent = chapterService.getPdfPage(pdfBytes, pageNumber);
+	// int totalPages = chapterService.getTotalPages(pdfBytes);
 
-	@PostMapping("/createChapters")
-	public ApiRespone<Boolean> createChapters(
-			@RequestBody ChaptersCreationRequest request) throws IOException {
+	// return
+	// ApiRespone.<PdfPageResponse>builder().result(PdfPageResponse.builder().pageContent(pageContent)
+	// .totalPages(pageNumber).totalPages(totalPages).build()).build();
+	// }
 
-		return ApiRespone.<Boolean>builder()
-				.result(chapterService.createChapters(request.getIdNovel(), request.getArray(),request.getTilteChapters()))
-				.build();
-	}
-	
-	@PutMapping(value = "/updateChapter")
-	public ApiRespone<ChapterRespone> updateChapter(@RequestBody ChaptersUpdateRequest request ) throws IOException{
-		return ApiRespone.<ChapterRespone>builder().result(chapterService.updateChapter(request)).build();
-	}
-	
-	@GetMapping(value = "/testPDFChapter/{idChapter}")
-	public ApiRespone<String> testPDFChapter(@PathVariable String idChapter){
-		return ApiRespone.<String>builder().result(chapterService.testChapterPdf(idChapter)).build();
-	}
-	@PutMapping(value = "/upView/{idChapter}")
-	public ApiRespone<Boolean> upView(@PathVariable String idChapter) {
-		return ApiRespone.<Boolean>builder().result(chapterService.upView(idChapter)).build();
-	}
+	// // lấy nhiều trang từ file pdf
+	// // page là số trang bắt đầu lấy
+	// // pageGet là số trang lấy
+	// @GetMapping("/pages")
+	// public ApiRespone<PdfPageResponse> getPdfPages(@RequestParam("id") String
+	// pdfId,
+	// @RequestParam("page") int pageNumber, @RequestParam("pageGet") int pageGet)
+	// throws IOException {
+	// byte[] pdfBytes = chapterService.getChapter(pdfId).getContentChapter();
+	// // byte[]
+	// pdfBytesNovel=novelRepository.findById(pdfId).get().getOriginalNovel();
+
+	// // String pageContent = chapterService.getPdfPages(pdfBytesNovel, pageNumber,
+	// pageGet);
+	// String pageContent = chapterService.getPdfPages(pdfBytes, pageNumber,
+	// pageGet);
+	// int totalPages = chapterService.getTotalPages(pdfBytes);
+
+	// return
+	// ApiRespone.<PdfPageResponse>builder().result(PdfPageResponse.builder().pageContent(pageContent)
+	// .totalPages(pageNumber).totalPages(totalPages).build()).build();
+	// }
+
+	// @PostMapping("/createChapters")
+	// public ApiRespone<Boolean> createChapters(
+	// @RequestBody ChaptersCreationRequest request) throws IOException {
+
+	// return ApiRespone.<Boolean>builder()
+	// .result(chapterService.createChapters(request.getIdNovel(),
+	// request.getArray(),request.getTilteChapters()))
+	// .build();
+	// }
+
+	// @PutMapping(value = "/updateChapter")
+	// public ApiRespone<ChapterRespone> updateChapter(@RequestBody
+	// ChaptersUpdateRequest request ) throws IOException{
+	// return
+	// ApiRespone.<ChapterRespone>builder().result(chapterService.updateChapter(request)).build();
+	// }
+
+	// @GetMapping(value = "/testPDFChapter/{idChapter}")
+	// public ApiRespone<String> testPDFChapter(@PathVariable String idChapter){
+	// return
+	// ApiRespone.<String>builder().result(chapterService.testChapterPdf(idChapter)).build();
+	// }
+	// @PutMapping(value = "/upView/{idChapter}")
+	// public ApiRespone<Boolean> upView(@PathVariable String idChapter) {
+	// return
+	// ApiRespone.<Boolean>builder().result(chapterService.upView(idChapter)).build();
+	// }
 }

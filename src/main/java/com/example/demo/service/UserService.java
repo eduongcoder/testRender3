@@ -36,122 +36,125 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserService {
 
-	IUserRepository userRepository;
-	IUserMapper userMapper;
-	PasswordEncoder passwordEncoder;
-	IChapterRepository chapterRepository;
-	IHistoryReadRepository historyReadRepository;
-	UploadFileService uploadFileService;
-	
-	public List<UserRespone> getAllUser() {
-		return userRepository.findAll().stream().map(t -> userMapper.toUserRespone(t)).toList();
-	}
-	
-	public UserRespone createUser(UserCreationRequest request) {
+	// IUserRepository userRepository;
+	// IUserMapper userMapper;
+	// PasswordEncoder passwordEncoder;
+	// IChapterRepository chapterRepository;
+	// IHistoryReadRepository historyReadRepository;
+	// UploadFileService uploadFileService;
 
-		User user = userRepository.findByIdUser(request.getEmail());
+	// public List<UserRespone> getAllUser() {
+	// return userRepository.findAll().stream().map(t ->
+	// userMapper.toUserRespone(t)).toList();
+	// }
 
-		if (user != null) {
-			throw new AppException(ErrorCode.USER_EXISTED);
-		}
-		user = userMapper.toUser(request);
-		
-		user.setPassword(passwordEncoder.encode(request.getPassword()));
+	// public UserRespone createUser(UserCreationRequest request) {
 
-		return userMapper.toUserRespone(userRepository.save(user));
+	// User user = userRepository.findByIdUser(request.getEmail());
 
-	}
-	
-	public UserRespone createUserByEmail(UserCreationByEmailRequest request) {
+	// if (user != null) {
+	// throw new AppException(ErrorCode.USER_EXISTED);
+	// }
+	// user = userMapper.toUser(request);
 
-		User user = userRepository.findByIdUser(request.getEmail());
+	// user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-		if (user != null) {
-			throw new AppException(ErrorCode.USER_EXISTED);
-		}
-		user = userMapper.toUser(request);
-		
-		return userMapper.toUserRespone(userRepository.save(user));
+	// return userMapper.toUserRespone(userRepository.save(user));
 
-	}
+	// }
 
-	public UserRespone login(UserLoginRequest request) {
+	// public UserRespone createUserByEmail(UserCreationByEmailRequest request) {
 
-		User user=userRepository.findByEmail(request.getEmail());
-		if (user==null) {
-			throw new AppException(ErrorCode.USER_NOT_EXISTED);
-		}
-		PasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
-		boolean matches=passwordEncoder.matches(request.getPassword(), user.getPassword());
-		
-		if (!matches) {
-			throw new AppException(ErrorCode.PASSWORD_NOT_MATCHED);
-		}
-		
-		return userMapper.toUserRespone(user);
-	}
+	// User user = userRepository.findByIdUser(request.getEmail());
 
-	public UserRespone loginByEmail(UserLoginByEmailRequest request) {
+	// if (user != null) {
+	// throw new AppException(ErrorCode.USER_EXISTED);
+	// }
+	// user = userMapper.toUser(request);
 
-		User user=userRepository.findByEmail(request.getEmail());
-		if (user==null) {
-			throw new AppException(ErrorCode.USER_NOT_EXISTED);
-		}
-		return userMapper.toUserRespone(user);
-	}
-	
-	public UserRespone updateUser(MultipartFile avatar,UserUpdateRequest request) throws IOException {
-		User user = userRepository.findByIdUser(request.getEmail());
+	// return userMapper.toUserRespone(userRepository.save(user));
 
-		
-		UploadFileRespone respone=uploadFileService.uploadFile(avatar);
-		
-		if (user == null) {
-			throw new AppException(ErrorCode.USER_NOT_EXISTED);
-		}
+	// }
 
-		user = userMapper.toUser2(request);
-		user.setPublicIDUser(respone.getPublic_id());
-		user.setAvatarUser(respone.getUrl());
-		return userMapper.toUserRespone(userRepository.save(user));
+	// public UserRespone login(UserLoginRequest request) {
 
-	}
-	
-	public UserRespone uploadUser(MultipartFile avatar,String email) throws IOException {
-		User user = userRepository.findByEmail(email);
+	// User user=userRepository.findByEmail(request.getEmail());
+	// if (user==null) {
+	// throw new AppException(ErrorCode.USER_NOT_EXISTED);
+	// }
+	// PasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
+	// boolean matches=passwordEncoder.matches(request.getPassword(),
+	// user.getPassword());
 
-		if (user == null) {
-			throw new AppException(ErrorCode.USER_NOT_EXISTED);
-		}
-		if (user.getAvatarUser()!=null) {
-			uploadFileService.deleteImage(user.getPublicIDUser());
-		}
-		UploadFileRespone respone=uploadFileService.uploadFile(avatar);
-		user.setAvatarUser(respone.getUrl());
-		user.setPublicIDUser(respone.getPublic_id());
-		return userMapper.toUserRespone(userRepository.save(user));
+	// if (!matches) {
+	// throw new AppException(ErrorCode.PASSWORD_NOT_MATCHED);
+	// }
 
-	}
-	
-	public String deleteUser(String idUser) {
-		User user=userRepository.findByIdUser(idUser);
-		if (user == null) {
-			throw new AppException(ErrorCode.USER_NOT_EXISTED);
-		}
-		userRepository.deleteById(idUser);
-		return idUser; 
-	}
-	
-	public UserRespone createHistoryRead(String idChapter,String email) {
-		User user=userRepository.findByEmail(email);
-		Chapter chapter=chapterRepository.findByIdChapter(idChapter);
-		
-		HistoryId historyId=new HistoryId();
-		historyId.setIdChapter(idChapter);
-		historyId.setIdUser(user.getIdUser());
-		
-		historyReadRepository.save(HistoryRead.builder().id(historyId).chapter(chapter).readingTime(LocalDateTime.now()).user(user).build());
-		return userMapper.toUserRespone(user);
-	}
-	
+	// return userMapper.toUserRespone(user);
+	// }
+
+	// public UserRespone loginByEmail(UserLoginByEmailRequest request) {
+
+	// User user=userRepository.findByEmail(request.getEmail());
+	// if (user==null) {
+	// throw new AppException(ErrorCode.USER_NOT_EXISTED);
+	// }
+	// return userMapper.toUserRespone(user);
+	// }
+
+	// public UserRespone updateUser(MultipartFile avatar,UserUpdateRequest request)
+	// throws IOException {
+	// User user = userRepository.findByIdUser(request.getEmail());
+
+	// UploadFileRespone respone=uploadFileService.uploadFile(avatar);
+
+	// if (user == null) {
+	// throw new AppException(ErrorCode.USER_NOT_EXISTED);
+	// }
+
+	// user = userMapper.toUser2(request);
+	// user.setPublicIDUser(respone.getPublic_id());
+	// user.setAvatarUser(respone.getUrl());
+	// return userMapper.toUserRespone(userRepository.save(user));
+
+	// }
+
+	// public UserRespone uploadUser(MultipartFile avatar,String email) throws
+	// IOException {
+	// User user = userRepository.findByEmail(email);
+
+	// if (user == null) {
+	// throw new AppException(ErrorCode.USER_NOT_EXISTED);
+	// }
+	// if (user.getAvatarUser()!=null) {
+	// uploadFileService.deleteImage(user.getPublicIDUser());
+	// }
+	// UploadFileRespone respone=uploadFileService.uploadFile(avatar);
+	// user.setAvatarUser(respone.getUrl());
+	// user.setPublicIDUser(respone.getPublic_id());
+	// return userMapper.toUserRespone(userRepository.save(user));
+
+	// }
+
+	// public String deleteUser(String idUser) {
+	// User user=userRepository.findByIdUser(idUser);
+	// if (user == null) {
+	// throw new AppException(ErrorCode.USER_NOT_EXISTED);
+	// }
+	// userRepository.deleteById(idUser);
+	// return idUser;
+	// }
+
+	// public UserRespone createHistoryRead(String idChapter,String email) {
+	// User user=userRepository.findByEmail(email);
+	// Chapter chapter=chapterRepository.findByIdChapter(idChapter);
+
+	// HistoryId historyId=new HistoryId();
+	// historyId.setIdChapter(idChapter);
+	// historyId.setIdUser(user.getIdUser());
+
+	// historyReadRepository.save(HistoryRead.builder().id(historyId).chapter(chapter).readingTime(LocalDateTime.now()).user(user).build());
+	// return userMapper.toUserRespone(user);
+	// }
+
 }

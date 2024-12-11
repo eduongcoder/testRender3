@@ -25,42 +25,47 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PointOfViewService {
 
-	IPointOfViewRepository pointOfViewRepository;
-	IPointOfViewMapper pointOfViewMapper;
+	// IPointOfViewRepository pointOfViewRepository;
+	// IPointOfViewMapper pointOfViewMapper;
 
-	public PointOfViewRespone createPOV(PointOfViewCreationRequest request) {
-		if (pointOfViewRepository.existsByNamePointOfView(request.getNamePointOfView())) {
-			throw new AppException(ErrorCode.POV_ALREADY_IN);
-		}
-		PointOfView pov = pointOfViewMapper.toPointOfView(request);
+	// public PointOfViewRespone createPOV(PointOfViewCreationRequest request) {
+	// if
+	// (pointOfViewRepository.existsByNamePointOfView(request.getNamePointOfView()))
+	// {
+	// throw new AppException(ErrorCode.POV_ALREADY_IN);
+	// }
+	// PointOfView pov = pointOfViewMapper.toPointOfView(request);
 
-		return pointOfViewMapper.toPointOfViewRespone(pointOfViewRepository.save(pov));
-	}
+	// return
+	// pointOfViewMapper.toPointOfViewRespone(pointOfViewRepository.save(pov));
+	// }
 
-	public List<PointOfViewRespone> getAllPOV() {
-		return pointOfViewRepository.findAll().stream().map(t ->pointOfViewMapper.toPointOfViewRespone(t)).toList();
-	}
-	
-	public String deletePOV(String idPOV) {
-		if (!pointOfViewRepository.existsById(idPOV)) {
-			throw new AppException(ErrorCode.POV_NOT_EXISTED);
-		}
-		try {
-			pointOfViewRepository.deleteById(idPOV);
-		} catch (Exception e) {
-			throw new AppException(ErrorCode.DELETE_CONTRAINT);
-		}
-	
-		return idPOV;
-	}
+	// public List<PointOfViewRespone> getAllPOV() {
+	// return pointOfViewRepository.findAll().stream().map(t
+	// ->pointOfViewMapper.toPointOfViewRespone(t)).toList();
+	// }
 
-	public Optional<PointOfViewRespone> updatePOV(PointOfViewUpdateRequest request) {
-		if (!pointOfViewRepository.existsById(request.getIdPointOfView())) {
-			throw new AppException(ErrorCode.POV_NOT_EXISTED);
-		}
-		return pointOfViewRepository.findById(request.getIdPointOfView()).map(t -> {
-			t.setNamePointOfView(request.getNamePointOfView());
-			return pointOfViewMapper.toPointOfViewRespone(pointOfViewRepository.save(t));
-		});
-	}
+	// public String deletePOV(String idPOV) {
+	// if (!pointOfViewRepository.existsById(idPOV)) {
+	// throw new AppException(ErrorCode.POV_NOT_EXISTED);
+	// }
+	// try {
+	// pointOfViewRepository.deleteById(idPOV);
+	// } catch (Exception e) {
+	// throw new AppException(ErrorCode.DELETE_CONTRAINT);
+	// }
+
+	// return idPOV;
+	// }
+
+	// public Optional<PointOfViewRespone> updatePOV(PointOfViewUpdateRequest
+	// request) {
+	// if (!pointOfViewRepository.existsById(request.getIdPointOfView())) {
+	// throw new AppException(ErrorCode.POV_NOT_EXISTED);
+	// }
+	// return pointOfViewRepository.findById(request.getIdPointOfView()).map(t -> {
+	// t.setNamePointOfView(request.getNamePointOfView());
+	// return pointOfViewMapper.toPointOfViewRespone(pointOfViewRepository.save(t));
+	// });
+	// }
 }

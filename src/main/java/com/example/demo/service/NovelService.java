@@ -43,260 +43,267 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class NovelService {
 
-	INovelRepository novelRepository;
-	ChapterService chapterService;
-	INovelMapper novelMapper;
-	ICategoryRepository categoryRepository;
-	IPointOfViewRepository pointOfViewRepository;
-	IAuthorRepository authorRepository;
-	UploadFileService uploadFileService;
-	IHistoryReadRepository historyReadRepository;
-	HistoryReadService historyReadService;
-	CommentService commentService;
+	// INovelRepository novelRepository;
+	// ChapterService chapterService;
+	// INovelMapper novelMapper;
+	// ICategoryRepository categoryRepository;
+	// IPointOfViewRepository pointOfViewRepository;
+	// IAuthorRepository authorRepository;
+	// UploadFileService uploadFileService;
+	// IHistoryReadRepository historyReadRepository;
+	// HistoryReadService historyReadService;
+	// CommentService commentService;
 
-	public NovelRespone createNovel(MultipartFile image, MultipartFile orginalNovel, NovelCreationRequest request)
-			throws IOException {
-		isImageFIle(image);
-		UploadFileRespone respone = uploadFileService.uploadFile(image);
-		request.setOriginalNovel(orginalNovel.getBytes());
-		int totalPage = chapterService.getTotalPages(request.getOriginalNovel());
-		Novel novel = novelMapper.toNovel(request);
-		novel.setImageNovel(respone.getUrl());
-		novel.setPublicIDNovel(respone.getPublic_id());
-		novel.setTotalPage(totalPage);
-		return novelMapper.toNovelRespone(novelRepository.save(novel));
+	// public NovelRespone createNovel(MultipartFile image, MultipartFile
+	// orginalNovel, NovelCreationRequest request)
+	// throws IOException {
+	// isImageFIle(image);
+	// UploadFileRespone respone = uploadFileService.uploadFile(image);
+	// request.setOriginalNovel(orginalNovel.getBytes());
+	// int totalPage = chapterService.getTotalPages(request.getOriginalNovel());
+	// Novel novel = novelMapper.toNovel(request);
+	// novel.setImageNovel(respone.getUrl());
+	// novel.setPublicIDNovel(respone.getPublic_id());
+	// novel.setTotalPage(totalPage);
+	// return novelMapper.toNovelRespone(novelRepository.save(novel));
 
-	}
+	// }
 
-	public String deleteNovel(String idNovel) {
+	// public String deleteNovel(String idNovel) {
 
-		Novel novel = novelRepository.findByIdNovel(idNovel);
-		if (novel != null) {
-			if (novel.getChapter().isEmpty()) {
+	// Novel novel = novelRepository.findByIdNovel(idNovel);
+	// if (novel != null) {
+	// if (novel.getChapter().isEmpty()) {
 
-				novelRepository.deleteById(idNovel);
-				return idNovel;
+	// novelRepository.deleteById(idNovel);
+	// return idNovel;
 
-			} else {
-				List<Chapter> listcChapters = novel.getChapter();
-				for (Chapter chapter : listcChapters) {
-					chapterService.deleteChapter(chapter.getIdChapter());
-				}
-				novelRepository.deleteById(idNovel);
-				return idNovel;
-			}
-		}
+	// } else {
+	// List<Chapter> listcChapters = novel.getChapter();
+	// for (Chapter chapter : listcChapters) {
+	// chapterService.deleteChapter(chapter.getIdChapter());
+	// }
+	// novelRepository.deleteById(idNovel);
+	// return idNovel;
+	// }
+	// }
 
-		throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
+	// throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
 
-	}
+	// }
 
-	public List<NovelNoChapterRespone> getAllNovelNoChapter() {
+	// public List<NovelNoChapterRespone> getAllNovelNoChapter() {
 
-		return novelRepository.findAll().stream().map(t -> {
-			NovelNoChapterRespone novelRespone = novelMapper.toNovelNoChapterRespone(t);
-			return novelRespone;
-		}).toList();
-	}
+	// return novelRepository.findAll().stream().map(t -> {
+	// NovelNoChapterRespone novelRespone = novelMapper.toNovelNoChapterRespone(t);
+	// return novelRespone;
+	// }).toList();
+	// }
 
-	public NovelRespone getNovelHaveOrginFile(String idNovel) {
-		Novel novel = novelRepository.findByIdNovel(idNovel);
+	// public NovelRespone getNovelHaveOrginFile(String idNovel) {
+	// Novel novel = novelRepository.findByIdNovel(idNovel);
 
-		NovelRespone novelRespone = novelMapper.toNovelRespone(novel);
-		// novelRespone.setOriginalNovel(
-		// "data:application/pdf;base64," +
-		// Base64.getEncoder().encodeToString(novel.getOriginalNovel()));
-		return novelRespone;
-	}
+	// NovelRespone novelRespone = novelMapper.toNovelRespone(novel);
+	// // novelRespone.setOriginalNovel(
+	// // "data:application/pdf;base64," +
+	// // Base64.getEncoder().encodeToString(novel.getOriginalNovel()));
+	// return novelRespone;
+	// }
 
-	public List<NovelRespone> getAllNovel() {
+	// public List<NovelRespone> getAllNovel() {
 
-		return novelRepository.findAll().stream().map(t -> {
-			NovelRespone novelRespone = novelMapper.toNovelRespone(t);
+	// return novelRepository.findAll().stream().map(t -> {
+	// NovelRespone novelRespone = novelMapper.toNovelRespone(t);
 
-			return novelRespone;
-		}).toList();
-	}
+	// return novelRespone;
+	// }).toList();
+	// }
 
-	public List<NovelNoImageRespone> getAllNovelNoImage() {
+	// public List<NovelNoImageRespone> getAllNovelNoImage() {
 
-		return novelRepository.findAll().stream().map(t -> novelMapper.toNovelNoImageRespone(t)).toList();
-	}
+	// return novelRepository.findAll().stream().map(t ->
+	// novelMapper.toNovelNoImageRespone(t)).toList();
+	// }
 
-	public List<NovelJustIdAndNameRespone> getAllNovelJustIdAndName() {
+	// public List<NovelJustIdAndNameRespone> getAllNovelJustIdAndName() {
 
-		return novelRepository.findAll().stream().map(t -> novelMapper.toNovelJustIdAndNameRespone(t)).toList();
-	}
+	// return novelRepository.findAll().stream().map(t ->
+	// novelMapper.toNovelJustIdAndNameRespone(t)).toList();
+	// }
 
-	public NovelRespone getNovelByName(String nameNovel) {
-		Novel novel = novelRepository.findByNameNovel(nameNovel);
-		if (novel == null) {
-			throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
-		}
-		NovelRespone novelRespone = novelMapper.toNovelRespone(novel);
+	// public NovelRespone getNovelByName(String nameNovel) {
+	// Novel novel = novelRepository.findByNameNovel(nameNovel);
+	// if (novel == null) {
+	// throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
+	// }
+	// NovelRespone novelRespone = novelMapper.toNovelRespone(novel);
 
-		return novelRespone;
-	}
+	// return novelRespone;
+	// }
 
-	public Optional<NovelRespone> updateNovel(MultipartFile image, MultipartFile originalFile,
-			NovelUpdateRequest request) throws IOException {
-		Novel novel = novelRepository.findByIdNovel(request.getIdNovel());
-		if (novel == null) {
-			throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
-		}
+	// public Optional<NovelRespone> updateNovel(MultipartFile image, MultipartFile
+	// originalFile,
+	// NovelUpdateRequest request) throws IOException {
+	// Novel novel = novelRepository.findByIdNovel(request.getIdNovel());
+	// if (novel == null) {
+	// throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
+	// }
 
-		if (image != null) {
-			uploadFileService.deleteImage(novel.getPublicIDNovel());
-			UploadFileRespone respone = uploadFileService.uploadFile(image);
-			request.setImageNovel(respone.getUrl());
-			request.setPublicIDNovel(respone.getPublic_id());
-		} else {
-			request.setImageNovel(novel.getImageNovel());
-			request.setPublicIDNovel(novel.getPublicIDNovel());
-		}
-		if (originalFile != null) {
-			log.info("file không null");
-			request.setOriginalNovel(originalFile.getBytes());
+	// if (image != null) {
+	// uploadFileService.deleteImage(novel.getPublicIDNovel());
+	// UploadFileRespone respone = uploadFileService.uploadFile(image);
+	// request.setImageNovel(respone.getUrl());
+	// request.setPublicIDNovel(respone.getPublic_id());
+	// } else {
+	// request.setImageNovel(novel.getImageNovel());
+	// request.setPublicIDNovel(novel.getPublicIDNovel());
+	// }
+	// if (originalFile != null) {
+	// log.info("file không null");
+	// request.setOriginalNovel(originalFile.getBytes());
 
-		} else {
-			log.info("file null");
+	// } else {
+	// log.info("file null");
 
-			request.setOriginalNovel(novel.getOriginalNovel());
+	// request.setOriginalNovel(novel.getOriginalNovel());
 
-		}
+	// }
 
-		if (novel.getTotalChapter() > request.getTotalChapter()) {
-			throw new AppException(ErrorCode.NEED_TO_DELETE_CHAPTER);
-		}
+	// if (novel.getTotalChapter() > request.getTotalChapter()) {
+	// throw new AppException(ErrorCode.NEED_TO_DELETE_CHAPTER);
+	// }
 
-		return novelRepository.findById(request.getIdNovel()).map(t -> {
+	// return novelRepository.findById(request.getIdNovel()).map(t -> {
 
-			try {
-				novelMapper.updateNovelFormRequest(request, t);
+	// try {
+	// novelMapper.updateNovelFormRequest(request, t);
 
-				t.setTotalPage(chapterService.getTotalPages(request.getOriginalNovel()));
-				return novelMapper.toNovelRespone(novelRepository.save(t));
+	// t.setTotalPage(chapterService.getTotalPages(request.getOriginalNovel()));
+	// return novelMapper.toNovelRespone(novelRepository.save(t));
 
-			} catch (IOException e) {
-				throw new AppException(ErrorCode.UPLOAD_FILE_ERROR);
-			}
+	// } catch (IOException e) {
+	// throw new AppException(ErrorCode.UPLOAD_FILE_ERROR);
+	// }
 
-		});
-	}
+	// });
+	// }
 
-	public NovelRespone addCategory(String nameCategory, String idNovel) {
-		Novel novel = novelRepository.findByIdNovel(idNovel);
-		Category category = categoryRepository.findByNameCategory(nameCategory);
+	// public NovelRespone addCategory(String nameCategory, String idNovel) {
+	// Novel novel = novelRepository.findByIdNovel(idNovel);
+	// Category category = categoryRepository.findByNameCategory(nameCategory);
 
-		if (novel == null) {
-			throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
-		}
+	// if (novel == null) {
+	// throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
+	// }
 
-		if (category == null) {
-			throw new AppException(ErrorCode.CATEGORY_NOT_EXISTED);
-		}
-		if (novel.getCategories().contains(category)) {
-			throw new AppException(ErrorCode.CATEGORY_ALREADY_IN);
-		}
-		novel.getCategories().add(category);
+	// if (category == null) {
+	// throw new AppException(ErrorCode.CATEGORY_NOT_EXISTED);
+	// }
+	// if (novel.getCategories().contains(category)) {
+	// throw new AppException(ErrorCode.CATEGORY_ALREADY_IN);
+	// }
+	// novel.getCategories().add(category);
 
-		return novelMapper.toNovelRespone(novelRepository.save(novel));
+	// return novelMapper.toNovelRespone(novelRepository.save(novel));
 
-	}
+	// }
 
-	public NovelRespone addAuthor(String idAuthor, String idNovel) {
-		Novel novel = novelRepository.findByIdNovel(idNovel);
-		Author author = authorRepository.findByIdAuthor(idAuthor);
-		if (novel == null) {
-			throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
-		}
+	// public NovelRespone addAuthor(String idAuthor, String idNovel) {
+	// Novel novel = novelRepository.findByIdNovel(idNovel);
+	// Author author = authorRepository.findByIdAuthor(idAuthor);
+	// if (novel == null) {
+	// throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
+	// }
 
-		if (author == null) {
-			throw new AppException(ErrorCode.AUTHOR_NOT_EXISTED);
-		}
-		if (novel.getAuthors().contains(author)) {
-			throw new AppException(ErrorCode.AUTHOR_ALREADY_IN);
-		}
-		novel.getAuthors().add(author);
+	// if (author == null) {
+	// throw new AppException(ErrorCode.AUTHOR_NOT_EXISTED);
+	// }
+	// if (novel.getAuthors().contains(author)) {
+	// throw new AppException(ErrorCode.AUTHOR_ALREADY_IN);
+	// }
+	// novel.getAuthors().add(author);
 
-		return novelMapper.toNovelRespone(novelRepository.save(novel));
+	// return novelMapper.toNovelRespone(novelRepository.save(novel));
 
-	}
+	// }
 
-	public NovelRespone addPointOfView(String namePointOfView, String idNovel) {
-		Novel novel = novelRepository.findByIdNovel(idNovel);
+	// public NovelRespone addPointOfView(String namePointOfView, String idNovel) {
+	// Novel novel = novelRepository.findByIdNovel(idNovel);
 
-		PointOfView pointOfView = pointOfViewRepository.findByNamePointOfView(namePointOfView);
-		if (novel == null) {
-			throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
-		}
+	// PointOfView pointOfView =
+	// pointOfViewRepository.findByNamePointOfView(namePointOfView);
+	// if (novel == null) {
+	// throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
+	// }
 
-		if (pointOfView == null) {
-			throw new AppException(ErrorCode.POV_NOT_EXISTED);
+	// if (pointOfView == null) {
+	// throw new AppException(ErrorCode.POV_NOT_EXISTED);
 
-		}
-		if (novel.getPointOfViews().contains(pointOfView)) {
-			throw new AppException(ErrorCode.POV_ALREADY_IN);
-		}
-		novel.getPointOfViews().add(pointOfView);
+	// }
+	// if (novel.getPointOfViews().contains(pointOfView)) {
+	// throw new AppException(ErrorCode.POV_ALREADY_IN);
+	// }
+	// novel.getPointOfViews().add(pointOfView);
 
-		return novelMapper.toNovelRespone(novelRepository.save(novel));
+	// return novelMapper.toNovelRespone(novelRepository.save(novel));
 
-	}
+	// }
 
-	public boolean isImageFIle(MultipartFile file) {
-		String contentType = file.getContentType();
+	// public boolean isImageFIle(MultipartFile file) {
+	// String contentType = file.getContentType();
 
-		boolean flag;
-		flag = contentType != null && (contentType.equals(MediaType.IMAGE_JPEG_VALUE)
-				|| contentType.equals(MediaType.IMAGE_PNG_VALUE) || contentType.equals(MediaType.IMAGE_GIF_VALUE));
-		if (flag) {
-			return flag;
-		} else {
-			throw new AppException(ErrorCode.NOT_IMAGE);
-		}
-	}
+	// boolean flag;
+	// flag = contentType != null && (contentType.equals(MediaType.IMAGE_JPEG_VALUE)
+	// || contentType.equals(MediaType.IMAGE_PNG_VALUE) ||
+	// contentType.equals(MediaType.IMAGE_GIF_VALUE));
+	// if (flag) {
+	// return flag;
+	// } else {
+	// throw new AppException(ErrorCode.NOT_IMAGE);
+	// }
+	// }
 
-	public String delete(String idNovel) {
-		Novel novel = novelRepository.findByIdNovel(idNovel);
-		if (novel == null) {
-			throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
-		}
-		List<Chapter> chapters = novel.getChapter();
+	// public String delete(String idNovel) {
+	// Novel novel = novelRepository.findByIdNovel(idNovel);
+	// if (novel == null) {
+	// throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
+	// }
+	// List<Chapter> chapters = novel.getChapter();
 
-		if (!chapters.isEmpty()) {
-			for (Chapter chapter : chapters) {
-				List<HistoryRead> historyRead = historyReadRepository.findByChapter(chapter);
-				if (!historyRead.isEmpty()) {
-					for (int i = 0; i < historyRead.size(); i++) {
-						historyReadService.deleteHistoryRead(historyRead.get(i).getId());
+	// if (!chapters.isEmpty()) {
+	// for (Chapter chapter : chapters) {
+	// List<HistoryRead> historyRead = historyReadRepository.findByChapter(chapter);
+	// if (!historyRead.isEmpty()) {
+	// for (int i = 0; i < historyRead.size(); i++) {
+	// historyReadService.deleteHistoryRead(historyRead.get(i).getId());
 
-					}
-				}
+	// }
+	// }
 
-				List<Comment> comments = chapter.getComment();
-				if (!comments.isEmpty()) {
-					for (int i = 0; i < comments.size(); i++) {
-						commentService.deleteComment(comments.get(i).getIdComment());
+	// List<Comment> comments = chapter.getComment();
+	// if (!comments.isEmpty()) {
+	// for (int i = 0; i < comments.size(); i++) {
+	// commentService.deleteComment(comments.get(i).getIdComment());
 
-					}
-				}
+	// }
+	// }
 
-				chapterService.deleteChapter(chapter.getIdChapter());
-			}
-		}
+	// chapterService.deleteChapter(chapter.getIdChapter());
+	// }
+	// }
 
-		novelRepository.deleteById(idNovel);
+	// novelRepository.deleteById(idNovel);
 
-		return idNovel;
-	}
+	// return idNovel;
+	// }
 
-	public int totalView(String idNovel) {
-		return novelRepository.findByIdNovel(idNovel).getChapter().stream()
-				.mapToInt(value -> value.getViewChapter()).sum();
-	}
+	// public int totalView(String idNovel) {
+	// return novelRepository.findByIdNovel(idNovel).getChapter().stream()
+	// .mapToInt(value -> value.getViewChapter()).sum();
+	// }
 
-	public NovelNoChapterRespone getAll1Query(String idNovel) {
-		return novelMapper.toNovelNoChapterRespone(novelRepository.findNovelWithCategoriesAndAuthors(idNovel));
-	}
+	// public NovelNoChapterRespone getAll1Query(String idNovel) {
+	// return
+	// novelMapper.toNovelNoChapterRespone(novelRepository.findNovelWithCategoriesAndAuthors(idNovel));
+	// }
 }

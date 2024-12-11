@@ -28,110 +28,111 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class AuthorService {
-	IAuthorRepository authorRepository;
-	IAuthorMapper authorMapper;
-	UploadFileService uploadFileService;
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	// IAuthorRepository authorRepository;
+	// IAuthorMapper authorMapper;
+	// UploadFileService uploadFileService;
+	// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	public AuthorRespone createAuthor(AuthorCreationRequest request, MultipartFile image) throws IOException {
-		Author author = authorMapper.toAuthor(request);
-		UploadFileRespone respone= uploadFileService.uploadFile(image);
-		author.setImageAuthor(respone.getUrl());
-		author.setPublicIDAuthor(respone.getPublic_id());
-		return authorMapper.toAuthorRespone(authorRepository.save(author));
-	}
+	// public AuthorRespone createAuthor(AuthorCreationRequest request,
+	// MultipartFile image) throws IOException {
+	// Author author = authorMapper.toAuthor(request);
+	// UploadFileRespone respone= uploadFileService.uploadFile(image);
+	// author.setImageAuthor(respone.getUrl());
+	// author.setPublicIDAuthor(respone.getPublic_id());
+	// return authorMapper.toAuthorRespone(authorRepository.save(author));
+	// }
 
-	public List<AuthorRespone> getAllAuthor() {
+	// public List<AuthorRespone> getAllAuthor() {
 
-		return authorRepository.findAll().stream().map(t -> {
-			AuthorRespone authorRespone = authorMapper.toAuthorRespone(t);
-			if (t.getDobAuthor() != null) {
-				String formattedDob = t.getDobAuthor().format(formatter);
-				authorRespone.setDobAuthor(formattedDob);
-			}
+	// return authorRepository.findAll().stream().map(t -> {
+	// AuthorRespone authorRespone = authorMapper.toAuthorRespone(t);
+	// if (t.getDobAuthor() != null) {
+	// String formattedDob = t.getDobAuthor().format(formatter);
+	// authorRespone.setDobAuthor(formattedDob);
+	// }
 
-			if (t.getDodAuthor()!=null) {
-				String formattedDod = t.getDodAuthor().format(formatter);
-				authorRespone.setDodAuthor(formattedDod);
-			}
-			
-//			if (t.getImageAuthor() != null) {
-//				authorRespone.setImageAuthor(
-//						"data:image/jpeg;base64," + Base64.getEncoder().encodeToString(t.getImageAuthor()));
-//
-//			}
-			return authorRespone;
-		}).toList(); 
-	}
+	// if (t.getDodAuthor()!=null) {
+	// String formattedDod = t.getDodAuthor().format(formatter);
+	// authorRespone.setDodAuthor(formattedDod);
+	// }
 
-	public String deleteAuthor(String idAuthor) {
-		if (!authorRepository.existsById(idAuthor)) {
-			throw new AppException(ErrorCode.AUTHOR_NOT_EXISTED);
-		}
-		try {
-			authorRepository.deleteById(idAuthor);
+	// if (t.getImageAuthor() != null) {
+	// authorRespone.setImageAuthor(
+	// "data:image/jpeg;base64," +
+	// Base64.getEncoder().encodeToString(t.getImageAuthor()));
+	//
+	// }
+	// return authorRespone;
+	// }).toList();
+	// }
 
-		} catch (Exception e) {
-			throw new AppException(ErrorCode.DELETE_CONTRAINT);
-		}
-		return idAuthor;
-	}
+	// public String deleteAuthor(String idAuthor) {
+	// if (!authorRepository.existsById(idAuthor)) {
+	// throw new AppException(ErrorCode.AUTHOR_NOT_EXISTED);
+	// }
+	// try {
+	// authorRepository.deleteById(idAuthor);
 
-	public Optional<AuthorRespone> uploadImage(String idAuthor, MultipartFile image) {
-		if (!authorRepository.existsById(idAuthor)) {
-			throw new AppException(ErrorCode.AUTHOR_NOT_EXISTED);
-		}
-		return authorRepository.findById(idAuthor).map(t -> {
-			try {
-				UploadFileRespone respone=uploadFileService.uploadFile(image);
-				t.setImageAuthor(respone.getUrl());
-				t.setPublicIDAuthor(respone.getPublic_id());
-				AuthorRespone authorRespone=authorMapper.toAuthorRespone(authorRepository.save(t));
-				return authorRespone;
-			} catch (IOException e) {
-				throw new AppException(ErrorCode.UPLOAD_FILE_ERROR);
-			}
-			
-		});
-	}
+	// } catch (Exception e) {
+	// throw new AppException(ErrorCode.DELETE_CONTRAINT);
+	// }
+	// return idAuthor;
+	// }
 
-	public Optional<AuthorRespone> updateAuthor(AuthorUpdateRequest request, MultipartFile image) {
-		if (!authorRepository.existsById(request.getIdAuthor())) {
-			throw new AppException(ErrorCode.AUTHOR_NOT_EXISTED);
-		}
-		return authorRepository.findById(request.getIdAuthor()).map(t -> {
-			t.setDescriptionAuthor(request.getDescriptionAuthor());
-			t.setNameAuthor(request.getNameAuthor());
-			try {
-				UploadFileRespone respone=uploadFileService.uploadFile(image);
-				t.setImageAuthor(respone.getUrl());
-				t.setPublicIDAuthor(respone.getPublic_id());
-			} catch (IOException e) {
-				throw new AppException(ErrorCode.UPLOAD_FILE_ERROR);
-			}
-		
-				t.setDobAuthor(request.getDobAuthor());
+	// public Optional<AuthorRespone> uploadImage(String idAuthor, MultipartFile
+	// image) {
+	// if (!authorRepository.existsById(idAuthor)) {
+	// throw new AppException(ErrorCode.AUTHOR_NOT_EXISTED);
+	// }
+	// return authorRepository.findById(idAuthor).map(t -> {
+	// try {
+	// UploadFileRespone respone=uploadFileService.uploadFile(image);
+	// t.setImageAuthor(respone.getUrl());
+	// t.setPublicIDAuthor(respone.getPublic_id());
+	// AuthorRespone
+	// authorRespone=authorMapper.toAuthorRespone(authorRepository.save(t));
+	// return authorRespone;
+	// } catch (IOException e) {
+	// throw new AppException(ErrorCode.UPLOAD_FILE_ERROR);
+	// }
 
-		
-		
-				t.setDodAuthor(request.getDodAuthor());
-		
-		
-				t.setNationality(request.getNationality());
+	// });
+	// }
 
-			
+	// public Optional<AuthorRespone> updateAuthor(AuthorUpdateRequest request,
+	// MultipartFile image) {
+	// if (!authorRepository.existsById(request.getIdAuthor())) {
+	// throw new AppException(ErrorCode.AUTHOR_NOT_EXISTED);
+	// }
+	// return authorRepository.findById(request.getIdAuthor()).map(t -> {
+	// t.setDescriptionAuthor(request.getDescriptionAuthor());
+	// t.setNameAuthor(request.getNameAuthor());
+	// try {
+	// UploadFileRespone respone=uploadFileService.uploadFile(image);
+	// t.setImageAuthor(respone.getUrl());
+	// t.setPublicIDAuthor(respone.getPublic_id());
+	// } catch (IOException e) {
+	// throw new AppException(ErrorCode.UPLOAD_FILE_ERROR);
+	// }
 
-			AuthorRespone authorRespone=authorMapper.toAuthorRespone(authorRepository.save(t));
+	// t.setDobAuthor(request.getDobAuthor());
 
-			if (t.getDodAuthor()!=null) {
-				authorRespone.setDodAuthor(t.getDodAuthor().format(formatter));
- 
-			} 
-			if (t.getDobAuthor()!=null) {
-				authorRespone.setDobAuthor(t.getDobAuthor().format(formatter)) ;
-			}
-			
-			return authorRespone;
-		});
-	}
+	// t.setDodAuthor(request.getDodAuthor());
+
+	// t.setNationality(request.getNationality());
+
+	// AuthorRespone
+	// authorRespone=authorMapper.toAuthorRespone(authorRepository.save(t));
+
+	// if (t.getDodAuthor()!=null) {
+	// authorRespone.setDodAuthor(t.getDodAuthor().format(formatter));
+
+	// }
+	// if (t.getDobAuthor()!=null) {
+	// authorRespone.setDobAuthor(t.getDobAuthor().format(formatter)) ;
+	// }
+
+	// return authorRespone;
+	// });
+	// }
 }

@@ -25,47 +25,55 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RequestMapping("/api/author")
 @RestController
-@FieldDefaults(level =  AccessLevel.PRIVATE,makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 @Slf4j
 public class AuthorController {
 
-	AuthorService authorService;
-	
-	@GetMapping("/getAllAuthor")
-	public ApiRespone<List<AuthorRespone>> getAllAuthor() {
-		return ApiRespone.<List<AuthorRespone>>builder()
-				.result(authorService.getAllAuthor())
-				.build();
+	@GetMapping
+	public String hello() {
+		return "OK";
 	}
-	
-	@PostMapping(value = "/createAuthor",consumes = { "multipart/form-data"})
-	public ApiRespone<AuthorRespone> createNovel(@RequestPart AuthorCreationRequest request,@RequestParam MultipartFile image) throws IOException {
-		AuthorRespone authorRespone= authorService.createAuthor(request, image);
 
-		return ApiRespone.<AuthorRespone>builder().result(authorRespone).build();
-	}
-	@PutMapping(value = "/updateAuthor",consumes = { "multipart/form-data"})
-	public ApiRespone<Optional<AuthorRespone>> updateAuthor(@RequestPart AuthorUpdateRequest request,@RequestParam MultipartFile image) {
-		 
-		return ApiRespone.<Optional<AuthorRespone>>builder().result(authorService.updateAuthor(request,image)).build();
-	}
-	
-	@PutMapping(value = "/uploadAuthor",consumes = {"multipart/form-data"})
-	public ApiRespone<Optional<AuthorRespone>> uploadAuthor(@RequestPart String idAuthor,@RequestParam MultipartFile image) {
-		
+	// AuthorService authorService;
 
-		return ApiRespone.<Optional<AuthorRespone>>builder().result(authorService.uploadImage(idAuthor,image)).build();
-	}
-	
-	
-	@DeleteMapping("/deleteAuthor")
-	public ApiRespone<String> deleteCategory(@RequestParam String idAuthor) {
-		
+	// @GetMapping("/getAllAuthor")
+	// public ApiRespone<List<AuthorRespone>> getAllAuthor() {
+	// return ApiRespone.<List<AuthorRespone>>builder()
+	// .result(authorService.getAllAuthor())
+	// .build();
+	// }
 
-		return ApiRespone.<String>builder().result(authorService.deleteAuthor(idAuthor)).build();
-	}
+	// @PostMapping(value = "/createAuthor",consumes = { "multipart/form-data"})
+	// public ApiRespone<AuthorRespone> createNovel(@RequestPart
+	// AuthorCreationRequest request,@RequestParam MultipartFile image) throws
+	// IOException {
+	// AuthorRespone authorRespone= authorService.createAuthor(request, image);
+
+	// return ApiRespone.<AuthorRespone>builder().result(authorRespone).build();
+	// }
+	// @PutMapping(value = "/updateAuthor",consumes = { "multipart/form-data"})
+	// public ApiRespone<Optional<AuthorRespone>> updateAuthor(@RequestPart
+	// AuthorUpdateRequest request,@RequestParam MultipartFile image) {
+
+	// return
+	// ApiRespone.<Optional<AuthorRespone>>builder().result(authorService.updateAuthor(request,image)).build();
+	// }
+
+	// @PutMapping(value = "/uploadAuthor",consumes = {"multipart/form-data"})
+	// public ApiRespone<Optional<AuthorRespone>> uploadAuthor(@RequestPart String
+	// idAuthor,@RequestParam MultipartFile image) {
+
+	// return
+	// ApiRespone.<Optional<AuthorRespone>>builder().result(authorService.uploadImage(idAuthor,image)).build();
+	// }
+
+	// @DeleteMapping("/deleteAuthor")
+	// public ApiRespone<String> deleteCategory(@RequestParam String idAuthor) {
+
+	// return
+	// ApiRespone.<String>builder().result(authorService.deleteAuthor(idAuthor)).build();
+	// }
 }
