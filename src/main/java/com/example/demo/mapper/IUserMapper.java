@@ -17,7 +17,6 @@ public interface IUserMapper {
 
 	User toUser(UserCreationByEmailRequest request);
 
-	@Mapping(target = "historyRead", ignore = true)
 	UserRespone toUserRespone(User user);
 
 	User toUser2(UserUpdateRequest request);

@@ -24,7 +24,6 @@ public interface INovelMapper {
 
 	NovelNoChapterRespone toNovelNoChapterRespone(Novel novel);
 
-	@Mapping(target = "originalNovel", ignore = true)
 	NovelRespone toNovelRespone(Novel novel);
 
 	void updateNovelFormRequest(NovelUpdateRequest request, @MappingTarget Novel novel);

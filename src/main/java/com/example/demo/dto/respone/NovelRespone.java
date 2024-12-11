@@ -18,7 +18,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@FieldDefaults(level =  AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class NovelRespone {
 
 	String idNovel;
@@ -27,12 +27,12 @@ public class NovelRespone {
 	Status statusNovel;
 	String imageNovel;
 	int totalChapter;
-	String originalNovel; 
+	// String originalNovel;
 	int totalPage;
-	
-	Set<Category> categories; 
+
+	Set<Category> categories;
 	Set<ChapterNoContentRespone> chapter;
 	Set<Author> authors;
 	Set<PointOfView> pointOfViews;
-	
+
 }

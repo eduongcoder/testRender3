@@ -103,8 +103,9 @@ public class NovelService {
 		Novel novel = novelRepository.findByIdNovel(idNovel);
 
 		NovelRespone novelRespone = novelMapper.toNovelRespone(novel);
-		novelRespone.setOriginalNovel(
-				"data:application/pdf;base64," + Base64.getEncoder().encodeToString(novel.getOriginalNovel()));
+		// novelRespone.setOriginalNovel(
+		// "data:application/pdf;base64," +
+		// Base64.getEncoder().encodeToString(novel.getOriginalNovel()));
 		return novelRespone;
 	}
 
@@ -129,7 +130,7 @@ public class NovelService {
 
 	public NovelRespone getNovelByName(String nameNovel) {
 		Novel novel = novelRepository.findByNameNovel(nameNovel);
-		if (novel==null) {
+		if (novel == null) {
 			throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
 		}
 		NovelRespone novelRespone = novelMapper.toNovelRespone(novel);
@@ -143,8 +144,8 @@ public class NovelService {
 		if (novel == null) {
 			throw new AppException(ErrorCode.NOVEL_NOT_EXISTED);
 		}
-	
-		if ( image!=null   ) {
+
+		if (image != null) {
 			uploadFileService.deleteImage(novel.getPublicIDNovel());
 			UploadFileRespone respone = uploadFileService.uploadFile(image);
 			request.setImageNovel(respone.getUrl());
@@ -153,21 +154,21 @@ public class NovelService {
 			request.setImageNovel(novel.getImageNovel());
 			request.setPublicIDNovel(novel.getPublicIDNovel());
 		}
-		if ( originalFile!=null) {
+		if (originalFile != null) {
 			log.info("file không null");
 			request.setOriginalNovel(originalFile.getBytes());
-			
+
 		} else {
 			log.info("file null");
 
 			request.setOriginalNovel(novel.getOriginalNovel());
-			
+
 		}
 
-		if (novel.getTotalChapter()>request.getTotalChapter()) {
+		if (novel.getTotalChapter() > request.getTotalChapter()) {
 			throw new AppException(ErrorCode.NEED_TO_DELETE_CHAPTER);
 		}
-		
+
 		return novelRepository.findById(request.getIdNovel()).map(t -> {
 
 			try {
@@ -272,7 +273,7 @@ public class NovelService {
 
 					}
 				}
-				
+
 				List<Comment> comments = chapter.getComment();
 				if (!comments.isEmpty()) {
 					for (int i = 0; i < comments.size(); i++) {
@@ -280,11 +281,11 @@ public class NovelService {
 
 					}
 				}
-				
+
 				chapterService.deleteChapter(chapter.getIdChapter());
 			}
 		}
-		
+
 		novelRepository.deleteById(idNovel);
 
 		return idNovel;
@@ -294,7 +295,7 @@ public class NovelService {
 		return novelRepository.findByIdNovel(idNovel).getChapter().stream()
 				.mapToInt(value -> value.getViewChapter()).sum();
 	}
-	
+
 	public NovelNoChapterRespone getAll1Query(String idNovel) {
 		return novelMapper.toNovelNoChapterRespone(novelRepository.findNovelWithCategoriesAndAuthors(idNovel));
 	}
