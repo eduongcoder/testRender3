@@ -2,7 +2,7 @@ package com.example.demo.exception;
 
 import lombok.Getter;
 
-@Getter
+
 public enum ErrorCode {
 	NOVEL_NOT_EXISTED(1001, "Novel not existed"), NOT_IMAGE(1002, "The file is not image"),
 	NOT_PDF(1003, "The file is not pdf"), CATEGORY_NOT_EXISTED(1004, "Category not existed"),
@@ -19,11 +19,28 @@ public enum ErrorCode {
 	UNKNOW_ERROR(9999, "Unknow error");
 
 	private int code;
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	private String message;
 
 	private ErrorCode(int code, String message) {
 		this.code = code;
 		this.message = message;
 	}
+	
 
 }
