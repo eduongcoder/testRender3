@@ -9,13 +9,13 @@ import com.example.demo.entity.Comment;
 
 @Mapper(componentModel = "spring")
 public interface ICommentMapper {
-	
-	@Mapping(target = "chapter",ignore = true)
-	@Mapping(target = "idComment",ignore = true)
-	@Mapping(target = "user",ignore = true)
+
+	@Mapping(target = "chapter", ignore = true)
+	@Mapping(target = "idComment", ignore = true)
+	@Mapping(target = "user", ignore = true)
 	Comment toComment(CommentCreationRequest request);
-	 
-	@Mapping(target = "idChapter",ignore = true) 
-	@Mapping(target = "idUser",ignore = true)
-	CommentRespone toCommentRespone(Comment comment); 
+
+	@Mapping(target = "idChapter", ignore = true)
+	@Mapping(target = "idUser", ignore = true)
+	CommentRespone toCommentRespone(Comment comment);
 }

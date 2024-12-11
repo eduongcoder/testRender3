@@ -14,28 +14,30 @@ import com.example.demo.entity.Novel;
 
 @Mapper(componentModel = "spring")
 public interface INovelMapper {
-	
-	@Mapping(target = "chapter",ignore = true)
-	@Mapping(target = "idNovel",ignore = true)
-	@Mapping(target = "authors",ignore = true)
-	@Mapping(target = "categories",ignore = true)
-	@Mapping(target = "pointOfViews",ignore = true)
-	@Mapping(target = "imageNovel",ignore = true)
-	@Mapping(target = "totalPage",ignore = true)
-	@Mapping(target = "publicIDNovel",ignore = true)
-	Novel toNovel(NovelCreationRequest request); 
-	
-	NovelJustIdAndNameRespone toNovelJustIdAndNameRespone(Novel novel); 
+
+	@Mapping(target = "chapter", ignore = true)
+	@Mapping(target = "idNovel", ignore = true)
+	@Mapping(target = "authors", ignore = true)
+	@Mapping(target = "categories", ignore = true)
+	@Mapping(target = "pointOfViews", ignore = true)
+	@Mapping(target = "imageNovel", ignore = true)
+	@Mapping(target = "totalPage", ignore = true)
+	@Mapping(target = "publicIDNovel", ignore = true)
+	Novel toNovel(NovelCreationRequest request);
+
+	NovelJustIdAndNameRespone toNovelJustIdAndNameRespone(Novel novel);
+
 	NovelNoImageRespone toNovelNoImageRespone(Novel novel);
-  
+
 	NovelNoChapterRespone toNovelNoChapterRespone(Novel novel);
-	@Mapping(target = "originalNovel",ignore = true)
+
+	@Mapping(target = "originalNovel", ignore = true)
 	NovelRespone toNovelRespone(Novel novel);
-	
-	@Mapping(target = "authors",ignore = true)
-	@Mapping(target = "categories",ignore = true)
-	@Mapping(target = "pointOfViews",ignore = true)
-	@Mapping(target = "chapter",ignore = true)
-	@Mapping(target = "totalPage",ignore = true)
-	void updateNovelFormRequest(NovelUpdateRequest request,@MappingTarget Novel novel);
+
+	@Mapping(target = "authors", ignore = true)
+	@Mapping(target = "categories", ignore = true)
+	@Mapping(target = "pointOfViews", ignore = true)
+	@Mapping(target = "chapter", ignore = true)
+	@Mapping(target = "totalPage", ignore = true)
+	void updateNovelFormRequest(NovelUpdateRequest request, @MappingTarget Novel novel);
 }
