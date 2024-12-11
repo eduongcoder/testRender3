@@ -10,9 +10,11 @@ import com.example.demo.entity.Category;
 
 @Mapper(componentModel = "spring")
 public interface ICategoryMapper {
-	
-	@Mapping(target = "idCategory",ignore = true)
+
+	@Mapping(target = "idCategory", ignore = true)
 	Category toCategory(CategoryCreationRequest request);
+
 	Category toCategory(CategoryUpdateRequest request);
-	CategoryRespone toCategoryRespone(Category chapter);  
-} 
+
+	CategoryRespone toCategoryRespone(Category chapter);
+}
