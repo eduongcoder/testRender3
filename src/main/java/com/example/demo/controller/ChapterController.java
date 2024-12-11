@@ -4,18 +4,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.dto.request.ChapterCreationRequest;
+// import com.example.demo.dto.request.ChapterCreationRequest;
 import com.example.demo.dto.request.ChaptersCreationRequest;
 import com.example.demo.dto.request.ChaptersUpdateRequest;
 import com.example.demo.dto.respone.ApiRespone;
-import com.example.demo.dto.respone.ChapterNoContentRespone;
+// import com.example.demo.dto.respone.ChapterNoContentRespone;
 import com.example.demo.dto.respone.ChapterRespone;
-import com.example.demo.dto.respone.NovelRespone;
+// import com.example.demo.dto.respone.NovelRespone;
 import com.example.demo.dto.respone.PdfPageResponse;
-import com.example.demo.entity.Novel;
-import com.example.demo.repository.INovelRepository;
-import com.example.demo.service.ChapterService;
-import com.example.demo.service.NovelService;
+// import com.example.demo.entity.Novel;
+// import com.example.demo.repository.INovelRepository;
+// import com.example.demo.service.ChapterService;
+// import com.example.demo.service.NovelService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

@@ -1,19 +1,19 @@
-package com.example.demo.mapper;
+// package com.example.demo.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+// import org.mapstruct.Mapper;
+// import org.mapstruct.Mapping;
 
-import com.example.demo.dto.request.CategoryCreationRequest;
-import com.example.demo.dto.request.CategoryUpdateRequest;
-import com.example.demo.dto.respone.CategoryRespone;
-import com.example.demo.entity.Category;
+// import com.example.demo.dto.request.CategoryCreationRequest;
+// import com.example.demo.dto.request.CategoryUpdateRequest;
+// import com.example.demo.dto.respone.CategoryRespone;
+// import com.example.demo.entity.Category;
 
-@Mapper(componentModel = "spring")
-public interface ICategoryMapper {
+// @Mapper(componentModel = "spring")
+// public interface ICategoryMapper {
 
-	Category toCategory(CategoryCreationRequest request);
+// 	Category toCategory(CategoryCreationRequest request);
 
-	Category toCategory(CategoryUpdateRequest request);
+// 	Category toCategory(CategoryUpdateRequest request);
 
-	CategoryRespone toCategoryRespone(Category chapter);
-}
+// 	CategoryRespone toCategoryRespone(Category chapter);
+// }

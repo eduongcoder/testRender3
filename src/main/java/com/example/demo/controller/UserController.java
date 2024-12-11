@@ -20,9 +20,9 @@ import com.example.demo.dto.request.UserLoginByEmailRequest;
 import com.example.demo.dto.request.UserLoginRequest;
 import com.example.demo.dto.request.UserUpdateRequest;
 import com.example.demo.dto.respone.ApiRespone;
-import com.example.demo.dto.respone.UserRespone;
-import com.example.demo.service.MailService;
-import com.example.demo.service.UserService;
+// import com.example.demo.dto.respone.UserRespone;
+// import com.example.demo.service.MailService;
+// import com.example.demo.service.UserService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

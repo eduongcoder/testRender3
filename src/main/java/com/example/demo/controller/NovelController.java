@@ -10,10 +10,10 @@ import com.example.demo.dto.request.NovelCreationRequest;
 import com.example.demo.dto.request.NovelUpdateRequest;
 import com.example.demo.dto.respone.ApiRespone;
 import com.example.demo.dto.respone.NovelJustIdAndNameRespone;
-import com.example.demo.dto.respone.NovelNoChapterRespone;
-import com.example.demo.dto.respone.NovelNoImageRespone;
-import com.example.demo.dto.respone.NovelRespone;
-import com.example.demo.service.NovelService;
+// import com.example.demo.dto.respone.NovelNoChapterRespone;
+// import com.example.demo.dto.respone.NovelNoImageRespone;
+// import com.example.demo.dto.respone.NovelRespone;
+// import com.example.demo.service.NovelService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

@@ -8,7 +8,7 @@ import com.example.demo.dto.request.CommentCreationRequest;
 import com.example.demo.dto.request.CommentUpdateRequest;
 import com.example.demo.dto.respone.ApiRespone;
 import com.example.demo.dto.respone.CommentRespone;
-import com.example.demo.service.CommentService;
+// import com.example.demo.service.CommentService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.AccessLevel;
