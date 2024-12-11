@@ -10,9 +10,10 @@ import com.example.demo.entity.PointOfView;
 
 @Mapper(componentModel = "spring")
 public interface IPointOfViewMapper {
-	
-	@Mapping(target = "idPointOfView",ignore = true)
+
 	PointOfView toPointOfView(PointOfViewCreationRequest request);
+
 	PointOfView toPointOfView(PointOfViewUpdateRequest request);
-	PointOfViewRespone toPointOfViewRespone(PointOfView pointOfView);  
+
+	PointOfViewRespone toPointOfViewRespone(PointOfView pointOfView);
 }

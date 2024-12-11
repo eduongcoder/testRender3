@@ -11,16 +11,7 @@ import com.example.demo.entity.Comment;
 @Mapper(componentModel = "spring")
 public interface ICommentMapper {
 
-	@Mappings({
-			@Mapping(target = "chapter", ignore = true),
-			@Mapping(target = "idComment", ignore = true),
-			@Mapping(target = "user", ignore = true)
-	})
 	Comment toComment(CommentCreationRequest request);
 
-	@Mappings({
-			@Mapping(target = "idChapter", ignore = true),
-			@Mapping(target = "idUser", ignore = true)
-	})
 	CommentRespone toCommentRespone(Comment comment);
 }
